@@ -1,92 +1,122 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, ArrowUpRight } from 'lucide-react';
+import { Check, ArrowUpRight, Sparkles } from 'lucide-react';
 
 const plans = [
   {
     name: "Growth",
     price: "$4,900",
-    desc: "For early-stage startups needing a premium MVP design.",
-    features: ["UI Design (10 screens)", "Basic Design System", "2 Rounds Revision", "2 Weeks Delivery"],
+    desc: "Perfect for early-stage startups needing an elite MVP.",
+    features: ["UI/UX Audit", "10 Premium Screens", "Design System Core", "Interactive Prototype", "2 Rounds of Polish"],
     highlight: false
   },
   {
     name: "Scale",
     price: "$9,500",
-    desc: "Comprehensive product design for growing companies.",
-    features: ["Full Product UI/UX", "Extensive Design System", "Unlimited Revisions", "Development Handoff", "Motion Prototypes"],
+    desc: "Full product design ecosystem for high-growth brands.",
+    features: ["Full Product Ecosystem", "Advanced Design System", "Unlimited Revisions", "Development Handoff", "Motion & Interactions", "Weekly Strategy Sync"],
     highlight: true
   },
   {
     name: "Elite",
     price: "Custom",
-    desc: "Dedicated design team for enterprise-scale platforms.",
-    features: ["Monthly Retainer", "Dedicated Lead Designer", "Ongoing Support", "Strategy & Analytics", "3D Asset Creation"],
+    desc: "Your dedicated design powerhouse for long-term scale.",
+    features: ["Embedded Design Team", "Continuous Iteration", "Marketing Assets", "3D & Brand Refresh", "Dedicated Slack Channel", "Monthly Retainer"],
     highlight: false
   }
 ];
 
 const Pricing: React.FC = () => {
   return (
-    <section id="pricing" className="py-24">
+    <section id="pricing" className="py-32 relative overflow-hidden bg-white/40">
+      {/* Decorative Orbs */}
+      <div className="absolute top-1/4 -right-40 w-[600px] h-[600px] bg-blue-50 rounded-full blur-[140px] opacity-60 -z-10" />
+
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-sm font-bold text-blue-600 uppercase tracking-[0.4em] mb-4">Investment</h2>
-          <h3 className="text-5xl font-black text-slate-900">Simple, <span className="text-gradient">Transparent Pricing.</span></h3>
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-sm font-bold text-blue-600 uppercase tracking-[0.4em] mb-4"
+          >
+            Investment
+          </motion.h2>
+          <motion.h3 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-5xl md:text-7xl font-black text-slate-900 leading-tight"
+          >
+            Simple, <span className="text-gradient">Premium.</span>
+          </motion.h3>
+          <p className="text-slate-500 mt-6 text-lg font-medium">No hidden fees. Just elite design that moves the needle.</p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-center">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className={`relative p-10 rounded-[40px] flex flex-col shadow-2xl transition-all duration-500 ${
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              whileHover={{ y: -10 }}
+              className={`relative p-12 rounded-[56px] flex flex-col shadow-2xl transition-all duration-700 ${
                 plan.highlight 
-                  ? 'bg-slate-900 text-white scale-105 z-10' 
-                  : 'glass-card border border-white'
+                  ? 'bg-slate-900 text-white min-h-[720px] shadow-blue-200/40' 
+                  : 'glass-card border border-white min-h-[660px]'
               }`}
             >
               {plan.highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                  Recommended
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 px-6 py-2 bg-blue-600 text-white text-[11px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg flex items-center gap-2">
+                  <Sparkles size={14} /> Most Chosen
                 </div>
               )}
               
-              <h4 className="text-2xl font-black mb-2">{plan.name}</h4>
-              <p className={`text-sm mb-8 ${plan.highlight ? 'text-slate-400' : 'text-slate-500'}`}>{plan.desc}</p>
+              <div className="mb-10">
+                <h4 className="text-3xl font-black mb-3">{plan.name}</h4>
+                <p className={`text-sm font-medium leading-relaxed ${plan.highlight ? 'text-slate-400' : 'text-slate-500'}`}>{plan.desc}</p>
+              </div>
               
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-5xl font-black">{plan.price}</span>
-                {plan.price !== "Custom" && <span className="text-sm opacity-60">/ project</span>}
+              <div className="flex items-baseline gap-2 mb-12">
+                <span className="text-6xl font-black tracking-tighter">{plan.price}</span>
+                {plan.price !== "Custom" && <span className={`text-sm font-bold ${plan.highlight ? 'text-slate-500' : 'text-slate-400'}`}>/ starting</span>}
               </div>
 
-              <div className="space-y-4 mb-10 flex-grow">
+              <div className="space-y-5 mb-12 flex-grow">
                 {plan.features.map(f => (
-                  <div key={f} className="flex items-center gap-3">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? 'bg-blue-600' : 'bg-blue-100'}`}>
-                      <Check size={12} className={plan.highlight ? 'text-white' : 'text-blue-600'} />
+                  <div key={f} className="flex items-center gap-4 group">
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${plan.highlight ? 'bg-blue-600' : 'bg-blue-100'}`}>
+                      <Check size={14} strokeWidth={3} className={plan.highlight ? 'text-white' : 'text-blue-600'} />
                     </div>
-                    <span className="text-sm font-medium">{f}</span>
+                    <span className="text-base font-bold tracking-tight">{f}</span>
                   </div>
                 ))}
               </div>
 
-              <button className={`flex items-center gap-4 pl-2 pr-8 py-2 rounded-full font-bold transition-all ${
+              <motion.button 
+                whileTap={{ scale: 0.95 }}
+                className={`flex items-center justify-between pl-3 pr-10 py-3 rounded-full font-black transition-all group ${
                 plan.highlight 
-                  ? 'bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-900/40' 
-                  : 'bg-slate-900 text-white hover:bg-slate-800'
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                  : 'bg-slate-900 text-white hover:bg-blue-600'
               }`}>
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-purple-600 shadow-sm">
-                  <ArrowUpRight size={20} strokeWidth={3} />
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-slate-900 shadow-lg group-hover:rotate-12 transition-transform">
+                  <ArrowUpRight size={24} strokeWidth={3} />
                 </div>
-                <span>Choose {plan.name}</span>
-              </button>
+                <span className="text-lg">Select Plan</span>
+              </motion.button>
             </motion.div>
           ))}
+        </div>
+        
+        <div className="mt-20 text-center">
+          <p className="text-slate-500 font-bold text-sm uppercase tracking-widest">
+            Need something completely unique? <button className="text-blue-600 hover:underline">Let's build a custom scope.</button>
+          </p>
         </div>
       </div>
     </section>
